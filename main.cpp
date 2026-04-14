@@ -18,6 +18,7 @@ void add_goat(set<Goat> &trip, string [], string []);
 void display_trip(set<Goat> trip);
 void accumulate_ages(const set<Goat>& trip);
 void clear_goats(set<Goat>& trip);
+void find_goat(set<Goat>& trip);
 int main_menu();
 
 int main() {
@@ -53,6 +54,8 @@ int main() {
             accumulate_ages(trip);
         } else if (choice == 6) {
             clear_goats(trip);
+        } else if (choice == 7) {
+            find_goat(trip);
         }
         cout << endl; // Just to fix formatting stuff
     }
@@ -173,4 +176,20 @@ void accumulate_ages(const set<Goat>& trip) {
 void clear_goats(set<Goat>& trip) {
     trip.clear();
     cout << "Trip cleared" << endl;
+}
+
+void find_goat(set<Goat>& trip) {
+    string name;
+    cout << "Name of Goat: ";
+    cin >> name;
+
+    auto it = trip.find(name);
+    if (it != trip.end()) {
+        cout << "Goat found: ";
+        cout << it->get_name();
+        cout << " (" << it->get_age() << ", ";
+        cout << it->get_color() << ")" << endl;
+    } else {
+        cout << "Goat not found";
+    }
 }
