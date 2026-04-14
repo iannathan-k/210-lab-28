@@ -9,6 +9,7 @@
 using namespace std;
 
 // COMSC-210 | Lab 28 | Ian Kusmiantoro
+
 const int SZ_NAMES = 200, SZ_COLORS = 25, MAX_AGE = 20;
 const int ADD = 1, DELETE = 2, LIST = 3, QUIT = 4;
 const int ACC = 5, CLEAR = 6, FIND = 7, AGE = 8;
@@ -55,21 +56,21 @@ int main() {
             delete_goat(trip);
         } else if (choice == LIST) {
             display_trip(trip);
-        } else if (choice == 5) {
+        } else if (choice == ACC) {
             accumulate_ages(trip);
-        } else if (choice == 6) {
+        } else if (choice == CLEAR) {
             clear_goats(trip);
-        } else if (choice == 7) {
+        } else if (choice == FIND) {
             find_goat(trip);
-        } else if (choice == 8) {
+        } else if (choice == AGE) {
             age_goats(trip);
-        } else if (choice == 9) {
+        } else if (choice == SORT) {
             sort_goats(trip);
-        } else if (choice == 10) {
+        } else if (choice == CHANGE) {
             change_age(trip);
-        } else if (choice == 11) {
+        } else if (choice == UNIQUE) {
             unique_goats(trip);
-        } else if (choice == 12) {
+        } else if (choice == REVERSE) {
             reverse_goats(trip);
         }
         cout << endl; // Just to fix formatting stuff
@@ -100,7 +101,7 @@ int main_menu() {
     int choice;
     cin >> choice;
 
-    while (choice < 1 || choice > 12) {
+    while (choice < ADD || choice > REVERSE) {
         cout << "Invalid choice, try again --> ";
         cin >> choice;
     }
@@ -179,16 +180,25 @@ void display_trip(const list<Goat>& trip) {
     }
 }
 
+// accumulate_ages() adds up all the ages of all goats
+// parameters: const list<Goat>& trip - list to use
+// returns: void
 void accumulate_ages(const list<Goat>& trip) {
     int total_age = accumulate(trip.begin(), trip.end(), 0);
     cout << "Total age: " << total_age;
 }
 
+// clear_goats() clears the list
+// parameters: list<Goat>& trip - list to use
+// returns: void
 void clear_goats(list<Goat>& trip) {
     trip.clear();
     cout << "Trip cleared" << endl;
 }
 
+// find_goat() finds a specific goat by name and prints its details
+// parameters: const list<Goat>& trip - list to use
+// returns: void
 void find_goat(const list<Goat>& trip) {
     string name;
     cout << "Name of Goat: ";
@@ -205,15 +215,24 @@ void find_goat(const list<Goat>& trip) {
     }
 }
 
+// age_goats() ages all goats by 2 years
+// parameters: list<Goat>& trip - list to use
+// returns: void
 void age_goats(list<Goat>& trip) {
     for_each(trip.begin(), trip.end(), [](Goat& n){n = n + 2;});
     cout << "Aged all goats by 2 years" << endl;
 }
 
+// sort_goats() sorts the goat by name
+// parameters: list<Goat>& trip - list to use
+// returns: void
 void sort_goats(list<Goat>& trip) {
     trip.sort();
 }
 
+// chnge_age() changes the name of a specific goat
+// parameters: list<Goat>& trip - list to use
+// returns: void
 void change_age(list<Goat>& trip) {
     string name;
     int age;
@@ -235,6 +254,9 @@ void change_age(list<Goat>& trip) {
     }
 }
 
+// unique_goats() removes all repetition of goats by name
+// parameters: list<Goat>& trip - list to use
+// returns: void
 void unique_goats(list<Goat>& trip) {
     // Must be sorted range first!
     sort_goats(trip);
@@ -242,6 +264,9 @@ void unique_goats(list<Goat>& trip) {
     trip.erase(new_end, trip.end());
 }
 
+// reverse_goats() reverses the order of the goat trip
+// parameters: list<Goat>& trip - list to use
+// returns: void
 void reverse_goats(list<Goat>& trip) {
     trip.reverse();
 }
