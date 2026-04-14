@@ -17,6 +17,7 @@ void delete_goat(set<Goat> &trip);
 void add_goat(set<Goat> &trip, string [], string []);
 void display_trip(set<Goat> trip);
 void accumulate_ages(const set<Goat>& trip);
+void clear_goats(set<Goat>& trip);
 int main_menu();
 
 int main() {
@@ -50,6 +51,8 @@ int main() {
             display_trip(trip);
         } else if (choice == 5) {
             accumulate_ages(trip);
+        } else if (choice == 6) {
+            clear_goats(trip);
         }
         cout << endl; // Just to fix formatting stuff
     }
@@ -164,5 +167,10 @@ void display_trip(set<Goat> trip) {
 
 void accumulate_ages(const set<Goat>& trip) {
     int total_age = accumulate(trip.begin(), trip.end(), 0);
-    cout << total_age;
+    cout << "Total age: " << total_age;
+}
+
+void clear_goats(set<Goat>& trip) {
+    trip.clear();
+    cout << "Trip cleared" << endl;
 }
