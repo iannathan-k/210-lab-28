@@ -4,6 +4,7 @@
 #include <list>
 #include <numeric>
 #include <algorithm>
+#include <random>
 #include "Goat.h"
 using namespace std;
 
@@ -21,6 +22,7 @@ void find_goat(const list<Goat>& trip);
 void age_goats(list<Goat>& trip);
 void sort_goats(list<Goat>& trip);
 void change_age(list<Goat>& trip);
+void unique_goats(list<Goat>& trip);
 int main_menu();
 
 int main() {
@@ -46,11 +48,9 @@ int main() {
 
         if (choice == ADD) {
             add_goat(trip, names, colors);
-        }
-        else if (choice == DELETE) {
+        } else if (choice == DELETE) {
             delete_goat(trip);
-        }
-        else if (choice == LIST) {
+        } else if (choice == LIST) {
             display_trip(trip);
         } else if (choice == 5) {
             accumulate_ages(trip);
@@ -65,7 +65,7 @@ int main() {
         } else if (choice == 10) {
             change_age(trip);
         } else if (choice == 11) {
-            
+            unique_goats(trip);
         }
         cout << endl; // Just to fix formatting stuff
     }
@@ -88,10 +88,9 @@ int main_menu() {
     cout << " [8] Age Goats" << endl;
     cout << " [9] Sort Goats" << endl;
     cout << "[10] Change Age" << endl;
-    cout << "[11] Re-roll Color" << endl;
+    cout << "[11] Unique Goats" << endl;
     cout << "[12] Has Oldest Goat" << endl;
     cout << "Choice --> ";
-
 
     int choice;
     cin >> choice;
@@ -229,4 +228,11 @@ void change_age(list<Goat>& trip) {
     } else {
         cout << "Goat not found";
     }
+}
+
+void unique_goats(list<Goat>& trip) {
+    // Must be sorted range first!
+    sort_goats(trip);
+    auto new_end = unique(trip.begin(), trip.end());
+    trip.erase(new_end, trip.end());
 }
