@@ -64,6 +64,8 @@ int main() {
             sort_goats(trip);
         } else if (choice == 10) {
             change_age(trip);
+        } else if (choice == 11) {
+            
         }
         cout << endl; // Just to fix formatting stuff
     }
