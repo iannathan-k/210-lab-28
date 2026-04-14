@@ -52,6 +52,8 @@ int main() {
             display_trip(trip);
         } else if (choice == 5) {
             accumulate_ages(trip);
+        } else if (choice == 6) {
+            clear_goats(trip);
         }
         cout << endl; // Just to fix formatting stuff
     }
@@ -157,10 +159,10 @@ void accumulate_ages(const list<Goat>& trip) {
     cout << "Total age: " << total_age;
 }
 
-// void clear_goats(list<Goat>& trip) {
-//     trip.clear();
-//     cout << "Trip cleared" << endl;
-// }
+void clear_goats(list<Goat>& trip) {
+    trip.clear();
+    cout << "Trip cleared" << endl;
+}
 
 // void find_goat(const list<Goat>& trip) {
 //     string name;
