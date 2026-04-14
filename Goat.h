@@ -36,6 +36,10 @@ public:
         return name < other.name; 
     }
 
+    bool operator=(const Goat &other) const {
+        return name == other.name;
+    }
+
     Goat operator+(int num) {
         return Goat(name, age + num);
     }

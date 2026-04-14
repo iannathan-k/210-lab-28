@@ -1,25 +1,24 @@
 #include <iostream>
 #include <fstream>
 #include <iomanip>
-#include <set>
-#include <vector>
+#include <list>
 #include <numeric>
+#include <algorithm>
 #include "Goat.h"
 using namespace std;
 
-// COMSC-210 | Lab 28 | Ian Kusmiantoro
+// COMSC-210 | Lab 23 | Ian Kusmiantoro
 
 const int SZ_NAMES = 200, SZ_COLORS = 25, MAX_AGE = 20;
 const int ADD = 1, DELETE = 2, LIST = 3, QUIT = 4;
 
-int select_goat(const set<Goat>& trip);
-void delete_goat(set<Goat> &trip);
-void add_goat(set<Goat> &trip, string [], string []);
-void display_trip(const set<Goat>& trip);
-void accumulate_ages(const set<Goat>& trip);
-void clear_goats(set<Goat>& trip);
-void find_goat(const set<Goat>& trip);
-void age_goats(set<Goat>& trip);
+int select_goat(const list<Goat>& trip);
+void delete_goat(list<Goat> &trip);
+void add_goat(list<Goat> &trip, string [], string []);
+void display_trip(const list<Goat>& trip);
+void accumulate_ages(const list<Goat>& trip);
+void clear_goats(list<Goat>& trip);
+void find_goat(const list<Goat>& trip);
 int main_menu();
 
 int main() {
@@ -38,7 +37,7 @@ int main() {
     while (fin1 >> colors[i++]);
     fin1.close();
 
-    set<Goat> trip; // the actual set
+    list<Goat> trip; // the actual list
     int choice = -1;
     while (choice != QUIT) { // Loop till the user quits
         choice = main_menu();
@@ -53,10 +52,6 @@ int main() {
             display_trip(trip);
         } else if (choice == 5) {
             accumulate_ages(trip);
-        } else if (choice == 6) {
-            clear_goats(trip);
-        } else if (choice == 7) {
-            find_goat(trip);
         }
         cout << endl; // Just to fix formatting stuff
     }
@@ -68,23 +63,11 @@ int main() {
 // parameters: none
 // returns: int - user's validated choice
 int main_menu() {
-    // I didn't add upper_bound, lower_bound, sort, copy, fill, etc.
-    // Because it either doesn't work with sets which are alrady sorted
-    // Or didnt make sense in the context of a goat manager
-
-    cout << "*** GOAT MANAGER 3002 ***" << endl;
-    cout << " [1] Add a goat" << endl;
-    cout << " [2] Delete a goat" << endl;
-    cout << " [3] List goats" << endl;
-    cout << " [4] Quit" << endl;
-    cout << " [5] Accumulate Ages" << endl;
-    cout << " [6] Clear Goats" << endl;
-    cout << " [7] Find a Goat" << endl;
-    cout << " [8] Age Goats" << endl;
-    cout << " [9] Replace Goat" << endl;
-    cout << "[10] Change Age" << endl;
-    cout << "[11] Re-roll Color" << endl;
-    cout << "[12] Has Oldest Goat" << endl;
+    cout << "*** GOAT MANAGER 3001 ***" << endl;
+    cout << "[1] Add a goat" << endl;
+    cout << "[2] Delete a goat" << endl;
+    cout << "[3] List goats" << endl;
+    cout << "[4] Quit" << endl;
     cout << "Choice --> ";
 
     int choice;
@@ -98,24 +81,24 @@ int main_menu() {
     return choice;
 }
 
-// add_goat() creates a new goat and pushes it to the back of the trip set
-// parameters: set<Goat> &trip - set to append to
+// add_goat() creates a new goat and pushes it to the back of the trip list
+// parameters: list<Goat> &trip - list to append to
 // returns: void
-void add_goat(set<Goat> &trip, string names[], string colors[]) {
+void add_goat(list<Goat> &trip, string names[], string colors[]) {
     string name = names[rand() % SZ_NAMES]; // Select random name and color
     string color = colors[rand() % SZ_COLORS];
     int age = rand() % (MAX_AGE + 1); // Random age between 0 and MAX_AGE inclusive
     // As modulo MAX_AGE would only give you 0 to MAX_AGE - 1
 
-    trip.insert(Goat(name, age, color));
+    trip.push_back(Goat(name, age, color));
 }
 
 // select_goat() displays the trip, prompts and validates user for a goat choice
-// parameters: set<Goat> trip - set to choose from
+// parameters: list<Goat> trip - list to choose from
 // returns: int - index of the chosen goat
-int select_goat(const set<Goat>& trip) {
+int select_goat(const list<Goat>& trip) {
     if (trip.empty()) { // Guard Clause
-        cout << "Set is empty" << endl;
+        cout << "List is empty" << endl;
         return -1; // -1 is just a dummy number to indicate an error
         // But theoretically it'll never be accessed since the calling function
         // delete_goat() already has its own guard clause
@@ -132,15 +115,15 @@ int select_goat(const set<Goat>& trip) {
         cin >> choice;
     }
 
-    return choice - 1; // Adjusted to 0 based index to work with sets
+    return choice - 1; // Adjusted to 0 based index to work with lists
 }
 
 // delete_goat() removes goat from index inputted by user
-// parameters: set<Goat> &trip - set to delete from
+// parameters: list<Goat> &trip - list to delete from
 // returns: void
-void delete_goat(set<Goat> &trip) {
+void delete_goat(list<Goat> &trip) {
     if (trip.empty()) {
-        cout << "Set is empty" << endl;
+        cout << "List is empty" << endl;
         return;
     }
 
@@ -150,12 +133,12 @@ void delete_goat(set<Goat> &trip) {
     trip.erase(it);
 }
 
-// display_trip() displays the goats on the trip set
-// parameters: set<Goat> trip - set to display
+// display_trip() displays the goats on the trip list
+// parameters: list<Goat> trip - list to display
 // returns: void
-void display_trip(const set<Goat>& trip) {
+void display_trip(const list<Goat>& trip) {
     if (trip.empty()) {
-        cout << "Set is empty" << endl;
+        cout << "List is empty" << endl;
         return;
     }
 
@@ -169,32 +152,28 @@ void display_trip(const set<Goat>& trip) {
     }
 }
 
-void accumulate_ages(const set<Goat>& trip) {
+void accumulate_ages(const list<Goat>& trip) {
     int total_age = accumulate(trip.begin(), trip.end(), 0);
     cout << "Total age: " << total_age;
 }
 
-void clear_goats(set<Goat>& trip) {
-    trip.clear();
-    cout << "Trip cleared" << endl;
-}
+// void clear_goats(list<Goat>& trip) {
+//     trip.clear();
+//     cout << "Trip cleared" << endl;
+// }
 
-void find_goat(const set<Goat>& trip) {
-    string name;
-    cout << "Name of Goat: ";
-    cin >> name;
+// void find_goat(const list<Goat>& trip) {
+//     string name;
+//     cout << "Name of Goat: ";
+//     cin >> name;
 
-    auto it = trip.find(name);
-    if (it != trip.end()) {
-        cout << "Goat found: ";
-        cout << it->get_name();
-        cout << " (" << it->get_age() << ", ";
-        cout << it->get_color() << ")" << endl;
-    } else {
-        cout << "Goat not found";
-    }
-}
-
-void age_goats(set<Goat>& trip) {
-    for_each(trip.begin(), trip.end(), [](Goat& n){n += 2;});
-}
+//     auto it = find(trip.begin(), trip.end(), Goat(name));
+//     if (it != trip.end()) {
+//         cout << "Goat found: ";
+//         cout << it->get_name();
+//         cout << " (" << it->get_age() << ", ";
+//         cout << it->get_color() << ")" << endl;
+//     } else {
+//         cout << "Goat not found";
+//     }
+// }
