@@ -7,8 +7,7 @@
 #include "Goat.h"
 using namespace std;
 
-// COMSC-210 | Lab 23 | Ian Kusmiantoro
-
+// COMSC-210 | Lab 28 | Ian Kusmiantoro
 const int SZ_NAMES = 200, SZ_COLORS = 25, MAX_AGE = 20;
 const int ADD = 1, DELETE = 2, LIST = 3, QUIT = 4;
 
@@ -19,6 +18,7 @@ void display_trip(const list<Goat>& trip);
 void accumulate_ages(const list<Goat>& trip);
 void clear_goats(list<Goat>& trip);
 void find_goat(const list<Goat>& trip);
+void age_goats(list<Goat>& trip);
 int main_menu();
 
 int main() {
@@ -56,6 +56,8 @@ int main() {
             clear_goats(trip);
         } else if (choice == 7) {
             find_goat(trip);
+        } else if (choice == 8) {
+            age_goats(trip);
         }
         cout << endl; // Just to fix formatting stuff
     }
@@ -67,12 +69,21 @@ int main() {
 // parameters: none
 // returns: int - user's validated choice
 int main_menu() {
-    cout << "*** GOAT MANAGER 3001 ***" << endl;
-    cout << "[1] Add a goat" << endl;
-    cout << "[2] Delete a goat" << endl;
-    cout << "[3] List goats" << endl;
-    cout << "[4] Quit" << endl;
+    cout << "*** GOAT MANAGER 3003 ***" << endl;
+    cout << " [1] Add a goat" << endl;
+    cout << " [2] Delete a goat" << endl;
+    cout << " [3] List goats" << endl;
+    cout << " [4] Quit" << endl;
+    cout << " [5] Accumulate Ages" << endl;
+    cout << " [6] Clear Goats" << endl;
+    cout << " [7] Find a Goat" << endl;
+    cout << " [8] Age Goats" << endl;
+    cout << " [9] Replace Goat" << endl;
+    cout << "[10] Change Age" << endl;
+    cout << "[11] Re-roll Color" << endl;
+    cout << "[12] Has Oldest Goat" << endl;
     cout << "Choice --> ";
+
 
     int choice;
     cin >> choice;
@@ -180,4 +191,9 @@ void find_goat(const list<Goat>& trip) {
     } else {
         cout << "Goat not found";
     }
+}
+
+void age_goats(list<Goat>& trip) {
+    for_each(trip.begin(), trip.end(), [](Goat& n){n = n + 2;});
+    cout << "Aged all goats by 2 years" << endl;
 }

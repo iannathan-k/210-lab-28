@@ -41,7 +41,7 @@ public:
     }
 
     Goat operator+(int num) {
-        return Goat(name, age + num);
+        return Goat(name, age + num, color);
     }
 
     // Learned this in 200!
