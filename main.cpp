@@ -19,6 +19,7 @@ void accumulate_ages(const list<Goat>& trip);
 void clear_goats(list<Goat>& trip);
 void find_goat(const list<Goat>& trip);
 void age_goats(list<Goat>& trip);
+void sort_goats(list<Goat>& trip);
 int main_menu();
 
 int main() {
@@ -58,6 +59,8 @@ int main() {
             find_goat(trip);
         } else if (choice == 8) {
             age_goats(trip);
+        } else if (choice == 9) {
+            sort_goats(trip);
         }
         cout << endl; // Just to fix formatting stuff
     }
@@ -78,7 +81,7 @@ int main_menu() {
     cout << " [6] Clear Goats" << endl;
     cout << " [7] Find a Goat" << endl;
     cout << " [8] Age Goats" << endl;
-    cout << " [9] Replace Goat" << endl;
+    cout << " [9] Sort Goats" << endl;
     cout << "[10] Change Age" << endl;
     cout << "[11] Re-roll Color" << endl;
     cout << "[12] Has Oldest Goat" << endl;
@@ -196,4 +199,8 @@ void find_goat(const list<Goat>& trip) {
 void age_goats(list<Goat>& trip) {
     for_each(trip.begin(), trip.end(), [](Goat& n){n = n + 2;});
     cout << "Aged all goats by 2 years" << endl;
+}
+
+void sort_goats(list<Goat>& trip) {
+    trip.sort();
 }
