@@ -12,13 +12,14 @@ using namespace std;
 const int SZ_NAMES = 200, SZ_COLORS = 25, MAX_AGE = 20;
 const int ADD = 1, DELETE = 2, LIST = 3, QUIT = 4;
 
-int select_goat(set<Goat> trip);
+int select_goat(const set<Goat>& trip);
 void delete_goat(set<Goat> &trip);
 void add_goat(set<Goat> &trip, string [], string []);
-void display_trip(set<Goat> trip);
+void display_trip(const set<Goat>& trip);
 void accumulate_ages(const set<Goat>& trip);
 void clear_goats(set<Goat>& trip);
-void find_goat(set<Goat>& trip);
+void find_goat(const set<Goat>& trip);
+void age_goats(set<Goat>& trip);
 int main_menu();
 
 int main() {
@@ -112,7 +113,7 @@ void add_goat(set<Goat> &trip, string names[], string colors[]) {
 // select_goat() displays the trip, prompts and validates user for a goat choice
 // parameters: set<Goat> trip - set to choose from
 // returns: int - index of the chosen goat
-int select_goat(set<Goat> trip) {
+int select_goat(const set<Goat>& trip) {
     if (trip.empty()) { // Guard Clause
         cout << "Set is empty" << endl;
         return -1; // -1 is just a dummy number to indicate an error
@@ -152,7 +153,7 @@ void delete_goat(set<Goat> &trip) {
 // display_trip() displays the goats on the trip set
 // parameters: set<Goat> trip - set to display
 // returns: void
-void display_trip(set<Goat> trip) {
+void display_trip(const set<Goat>& trip) {
     if (trip.empty()) {
         cout << "Set is empty" << endl;
         return;
@@ -178,7 +179,7 @@ void clear_goats(set<Goat>& trip) {
     cout << "Trip cleared" << endl;
 }
 
-void find_goat(set<Goat>& trip) {
+void find_goat(const set<Goat>& trip) {
     string name;
     cout << "Name of Goat: ";
     cin >> name;
@@ -192,4 +193,8 @@ void find_goat(set<Goat>& trip) {
     } else {
         cout << "Goat not found";
     }
+}
+
+void age_goats(set<Goat>& trip) {
+    for_each(trip.begin(), trip.end(), [](Goat& n){n += 2;});
 }

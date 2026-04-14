@@ -36,6 +36,10 @@ public:
         return name < other.name; 
     }
 
+    Goat operator+(int num) {
+        return Goat(name, age + num);
+    }
+
     // Learned this in 200!
     friend int operator+(int sum, const Goat& other) {
         return sum + other.get_age();
