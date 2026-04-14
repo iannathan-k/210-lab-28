@@ -11,6 +11,8 @@ using namespace std;
 // COMSC-210 | Lab 28 | Ian Kusmiantoro
 const int SZ_NAMES = 200, SZ_COLORS = 25, MAX_AGE = 20;
 const int ADD = 1, DELETE = 2, LIST = 3, QUIT = 4;
+const int ACC = 5, CLEAR = 6, FIND = 7, AGE = 8;
+const int SORT = 9, CHANGE = 10, UNIQUE = 11, REVERSE = 12;
 
 int select_goat(const list<Goat>& trip);
 void delete_goat(list<Goat> &trip);
@@ -23,6 +25,7 @@ void age_goats(list<Goat>& trip);
 void sort_goats(list<Goat>& trip);
 void change_age(list<Goat>& trip);
 void unique_goats(list<Goat>& trip);
+void reverse_goats(list<Goat>& trip);
 int main_menu();
 
 int main() {
@@ -66,6 +69,8 @@ int main() {
             change_age(trip);
         } else if (choice == 11) {
             unique_goats(trip);
+        } else if (choice == 12) {
+            reverse_goats(trip);
         }
         cout << endl; // Just to fix formatting stuff
     }
@@ -89,7 +94,7 @@ int main_menu() {
     cout << " [9] Sort Goats" << endl;
     cout << "[10] Change Age" << endl;
     cout << "[11] Unique Goats" << endl;
-    cout << "[12] Has Oldest Goat" << endl;
+    cout << "[12] Reverse Goats" << endl;
     cout << "Choice --> ";
 
     int choice;
@@ -235,4 +240,8 @@ void unique_goats(list<Goat>& trip) {
     sort_goats(trip);
     auto new_end = unique(trip.begin(), trip.end());
     trip.erase(new_end, trip.end());
+}
+
+void reverse_goats(list<Goat>& trip) {
+    trip.reverse();
 }
