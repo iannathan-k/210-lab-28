@@ -20,6 +20,7 @@ void clear_goats(list<Goat>& trip);
 void find_goat(const list<Goat>& trip);
 void age_goats(list<Goat>& trip);
 void sort_goats(list<Goat>& trip);
+void change_age(list<Goat>& trip);
 int main_menu();
 
 int main() {
@@ -61,6 +62,8 @@ int main() {
             age_goats(trip);
         } else if (choice == 9) {
             sort_goats(trip);
+        } else if (choice == 10) {
+            change_age(trip);
         }
         cout << endl; // Just to fix formatting stuff
     }
@@ -203,4 +206,25 @@ void age_goats(list<Goat>& trip) {
 
 void sort_goats(list<Goat>& trip) {
     trip.sort();
+}
+
+void change_age(list<Goat>& trip) {
+    string name;
+    int age;
+
+    cout << "Goat to change: ";
+    cin >> name;
+    cout << "New age: ";
+    cin >> age;
+    auto it = find(trip.begin(), trip.end(), Goat(name));
+    if (it != trip.end()) {
+        it->set_age(age);
+
+        cout << "Age Changed: ";
+        cout << it->get_name();
+        cout << " (" << it->get_age() << ", ";
+        cout << it->get_color() << ")" << endl;
+    } else {
+        cout << "Goat not found";
+    }
 }
