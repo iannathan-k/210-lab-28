@@ -2,10 +2,11 @@
 #include <fstream>
 #include <iomanip>
 #include <set>
+#include <vector>
 #include "Goat.h"
 using namespace std;
 
-// COMSC-210 | Lab 24 | Ian Kusmiantoro
+// COMSC-210 | Lab 28 | Ian Kusmiantoro
 
 const int SZ_NAMES = 200, SZ_COLORS = 25, MAX_AGE = 20;
 const int ADD = 1, DELETE = 2, LIST = 3, QUIT = 4;
@@ -14,6 +15,7 @@ int select_goat(set<Goat> trip);
 void delete_goat(set<Goat> &trip);
 void add_goat(set<Goat> &trip, string [], string []);
 void display_trip(set<Goat> trip);
+void accumulate_ages(const set<Goat>& trip);
 int main_menu();
 
 int main() {
@@ -56,11 +58,23 @@ int main() {
 // parameters: none
 // returns: int - user's validated choice
 int main_menu() {
-    cout << "*** GOAT MANAGER 3001 ***" << endl;
-    cout << "[1] Add a goat" << endl;
-    cout << "[2] Delete a goat" << endl;
-    cout << "[3] List goats" << endl;
-    cout << "[4] Quit" << endl;
+    // I didn't add upper_bound, lower_bound, sort, copy, fill, etc.
+    // Because it either doesn't work with sets which are alrady sorted
+    // Or didnt make sense in the context of a goat manager
+
+    cout << "*** GOAT MANAGER 3002 ***" << endl;
+    cout << " [1] Add a goat" << endl;
+    cout << " [2] Delete a goat" << endl;
+    cout << " [3] List goats" << endl;
+    cout << " [4] Quit" << endl;
+    cout << " [5] Accumulate Ages" << endl;
+    cout << " [6] Clear Goats" << endl;
+    cout << " [7] Find a Goat" << endl;
+    cout << " [8] Age Goats" << endl;
+    cout << " [9] Replace Goat" << endl;
+    cout << "[10] Change Age" << endl;
+    cout << "[11] Re-roll Color" << endl;
+    cout << "[12] Has Oldest Goat" << endl;
     cout << "Choice --> ";
 
     int choice;
@@ -143,4 +157,8 @@ void display_trip(set<Goat> trip) {
         cout << goat.get_color() << ")" << endl;
         i++;
     }
+}
+
+void accumulate_ages(const set<Goat>& trip) {
+    int totalScore = accumulate(trip.begin(), trip.end(), 0);
 }
