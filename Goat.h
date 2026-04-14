@@ -35,6 +35,11 @@ public:
         // So I'm following how you did it in the videos, so just the names
         return name < other.name; 
     }
+
+    // Learned this in 200!
+    friend int operator+(int sum, const Goat& other) {
+        return sum + other.get_age();
+    }
 };
 
 #endif

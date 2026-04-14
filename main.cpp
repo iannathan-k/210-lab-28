@@ -3,6 +3,7 @@
 #include <iomanip>
 #include <set>
 #include <vector>
+#include <numeric>
 #include "Goat.h"
 using namespace std;
 
@@ -47,6 +48,8 @@ int main() {
         }
         else if (choice == LIST) {
             display_trip(trip);
+        } else if (choice == 5) {
+            accumulate_ages(trip);
         }
         cout << endl; // Just to fix formatting stuff
     }
@@ -80,7 +83,7 @@ int main_menu() {
     int choice;
     cin >> choice;
 
-    while (choice < 1 || choice > 4) {
+    while (choice < 1 || choice > 12) {
         cout << "Invalid choice, try again --> ";
         cin >> choice;
     }
@@ -160,5 +163,6 @@ void display_trip(set<Goat> trip) {
 }
 
 void accumulate_ages(const set<Goat>& trip) {
-    int totalScore = accumulate(trip.begin(), trip.end(), 0);
+    int total_age = accumulate(trip.begin(), trip.end(), 0);
+    cout << total_age;
 }
